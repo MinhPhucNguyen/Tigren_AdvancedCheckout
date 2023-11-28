@@ -7,8 +7,32 @@
 
 require([
     'jquery',
-    'Magento_Ui/js/modal/modal'
-], function ($, modal) {
+    'Magento_Ui/js/modal/modal',
+    'Magento_Customer/js/customer-data'
+], function ($, modal, customerData) {
+
+    /**
+     * Clear cart function
+     */
+    function clearCart() {
+        $.ajax({
+            type: "POST",
+            url: "/advancedcheckout/index/clearcart",
+            success: function (response) {
+                var sections = ['cart'];
+                customerData.invalidate(sections);
+                customerData.reload(sections, true);
+                if (response.success) {
+                    $("#popup-modal").modal("closeModal");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+
     var options = {
         type: 'popup',
         responsive: true,
@@ -25,7 +49,7 @@ require([
                 text: $.mage.__('Clear Cart'),
                 class: 'clear_cart_btn',
                 click: function () {
-                    this.closeModal();
+                    clearCart()
                 }
             }
         ]

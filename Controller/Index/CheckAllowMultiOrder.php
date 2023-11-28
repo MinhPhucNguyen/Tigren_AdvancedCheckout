@@ -50,10 +50,8 @@ class CheckAllowMultiOrder extends Action
          */
         if (count($allItemsInCart) > 0) {
             foreach ($allItemsInCart as $item) {
-
                 if ($productId == $item->getProductId()) {
-
-                    if ($product->getAllowMultiOrder() === "1") {
+                    if (!$product->getAllowMultiOrder() == '1') {
                         return $resultJson->setData([
                             'showPopUp' => true,
                             'message' => __('You can only purchase one item at a time.')
@@ -64,9 +62,12 @@ class CheckAllowMultiOrder extends Action
                             'message' => __('')
                         ]);
                     }
-                    
                 }
             }
         }
+        return $resultJson->setData([
+            'showPopUp' => false,
+            'message' => __('')
+        ]);
     }
 }
