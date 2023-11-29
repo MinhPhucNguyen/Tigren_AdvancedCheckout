@@ -9,7 +9,7 @@
 
 namespace Tigren\AdvancedCheckout\Model;
 
-use AccountManagementInterface;
+use Tigren\AdvancedCheckout\Api\AccountManagementInterface;
 use Magento\Customer\Model\CustomerFactory;
 
 class AccountManagement implements AccountManagementInterface

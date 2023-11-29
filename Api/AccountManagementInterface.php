@@ -6,6 +6,7 @@
  *
  */
 
+namespace Tigren\AdvancedCheckout\Api;
 
 interface AccountManagementInterface
 {

@@ -21,27 +21,27 @@ define([
                 method: 'GET',
                 success: function (response) {
                     console.log(response)
-                    // var options = {
-                    //     type: 'popup',
-                    //     responsive: true,
-                    //     innerScroll: true,
-                    //     buttons: [
-                    //         {
-                    //             text: $.mage.__('Close'),
-                    //             class: 'close_btn',
-                    //             click: function () {
-                    //                 $("#popup-modal").modal("closeModal");
-                    //             }
-                    //         },
-                    //     ]
-                    // };
-                    //
-                    // var popup = modal(options, $('#popup-modal'));
+                    var options = {
+                        type: 'popup',
+                        responsive: true,
+                        innerScroll: true,
+                        buttons: [
+                            {
+                                text: $.mage.__('Close'),
+                                class: 'close_btn',
+                                click: function () {
+                                    $("#popup-modal").modal("closeModal");
+                                }
+                            },
+                        ]
+                    };
+
+                    var popup = modal(options, $('#popup-modal'));
 
                     if (response.showPopUp) {
-                        // $("#popup-modal").modal("openModal");
-                        alert('You have an incomplete order. Please complete or cancel it before placing a new order.')
-                        
+                        $("#popup-modal").modal("openModal");
+                        // alert('You have an incomplete order. Please complete or cancel it before placing a new order.')
+
                     } else {
                         return placeOrderAction(paymentData, redirectOnSuccess);
                     }
