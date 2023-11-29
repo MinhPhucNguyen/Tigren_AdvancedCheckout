@@ -45,9 +45,10 @@ class ClearCart extends Action
             $this->cart->removeItem($item->getId())->save();
         }
 
+        $this->messageManager->addSuccessMessage(__('Your cart has been cleared.'));
+
         return $resultJson->setData([
             'success' => true,
-            'message' => __('Your cart has been cleared.')
         ]);
     }
 }

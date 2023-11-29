@@ -37,6 +37,11 @@ class CheckAllowMultiOrder extends Action
     {
         $resultJson = $this->resultJsonFactory->create();
         $productId = $this->getRequest()->getParam('product_id');
+        $qty = $this->getRequest()->getParam('qty');
+        $params = [
+            'product' => $productId,
+            'qty' => $qty
+        ];
 
         $product = $this->productFactory->create()->load($productId);
         $allItemsInCart = $this->cart->getQuote()->getAllVisibleItems();
@@ -56,6 +61,7 @@ class CheckAllowMultiOrder extends Action
                             'showPopUp' => true,
                             'message' => __('You can only purchase one item at a time.')
                         ]);
+
                     } else {
                         return $resultJson->setData([
                             'showPopUp' => false,

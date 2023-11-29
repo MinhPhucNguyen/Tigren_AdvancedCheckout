@@ -11,7 +11,14 @@ var config =
             {
                 '*':
                     {
-                        'addtocart': 'Tigren_AdvancedCheckout/js/catalog-add-to-cart'
+                        'addtocart': 'Tigren_AdvancedCheckout/js/catalog-add-to-cart',
                     }
+            },
+        config: {
+            mixins: {
+                'Magento_Checkout/js/action/place-order': {
+                    'Tigren_AdvancedCheckout/js/place-order': true
+                }
             }
+        }
     };

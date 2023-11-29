@@ -25,9 +25,10 @@ require([
                 if (response.success) {
                     $("#popup-modal").modal("closeModal");
                 }
+                window.location.reload();
             },
             error: function (xhr, status, error) {
-                console.error(error);
+                alert(error);
             }
         });
     }
@@ -39,17 +40,17 @@ require([
         innerScroll: true,
         buttons: [
             {
-                text: $.mage.__('Proceed to Checkout'),
-                class: 'proceed_to_checkout_btn',
-                click: function () {
-                    window.location.href = '/checkout';
-                }
-            },
-            {
                 text: $.mage.__('Clear Cart'),
                 class: 'clear_cart_btn',
                 click: function () {
                     clearCart()
+                }
+            },
+            {
+                text: $.mage.__('Proceed to Checkout'),
+                class: 'proceed_to_checkout_btn',
+                click: function () {
+                    window.location.href = '/checkout/';
                 }
             }
         ]
@@ -58,16 +59,20 @@ require([
     var popup = modal(options, $('#popup-modal'));
 
     $("#product-addtocart-button").on('click', function () {
+
         const product_id = $("#product_addtocart_form input[name='product']").val();
+        const qty = $("#product_addtocart_form input[name='qty']").val();
 
         $.ajax({
             type: "POST",
             url: "/advancedcheckout/index/checkallowmultiorder",
             data: {
                 product_id: product_id,
+                qty: qty
             },
             success: function (response) {
                 if (response.showPopUp) {
+                    $("#popup-modal").html('<h3>' + response.message + '</h3>');
                     $("#popup-modal").modal("openModal");
                 }
             },
