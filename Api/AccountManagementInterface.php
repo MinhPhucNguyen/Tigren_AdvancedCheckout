@@ -15,5 +15,5 @@ interface AccountManagementInterface
      * @param string $password
      * @return int
      */
-    public function getAllAcounts();
+    public function getAllAccounts();
 }

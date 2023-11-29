@@ -22,9 +22,14 @@ class AccountManagement implements AccountManagementInterface
         $this->customerFactory = $customerFactory;
     }
 
-    public function getAllAcounts()
+    public function getAllAccounts()
     {
-        $user = $this->customerFactory->create();
-        
+        $customerFactory = $this->customerFactory->create();
+        $collection = $customerFactory->getCollection();
+        $result = [];
+        foreach ($collection as $item) {
+            $result[] = $item->getData();
+        }
+        return $result;
     }
 }
