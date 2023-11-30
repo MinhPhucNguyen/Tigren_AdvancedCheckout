@@ -7,9 +7,8 @@
 
 define([
     'jquery',
-    'Magento_Ui/js/modal/modal',
     'mage/utils/wrapper'
-], function ($, modal, wrapper) {
+], function ($, wrapper) {
     'use strict';
 
     return function (placeOrderAction) {
@@ -20,29 +19,12 @@ define([
                 url: '/advancedcheckout/index/checkincompleteorder',
                 method: 'GET',
                 success: function (response) {
-                    console.log(response)
-                    var options = {
-                        type: 'popup',
-                        responsive: true,
-                        innerScroll: true,
-                        buttons: [
-                            {
-                                text: $.mage.__('Close'),
-                                class: 'close_btn',
-                                click: function () {
-                                    $("#popup-modal").modal("closeModal");
-                                }
-                            },
-                        ]
-                    };
-
-                    var popup = modal(options, $('#popup-modal'));
 
                     if (response.showPopUp) {
-                        $("#popup-modal").modal("openModal");
-                        // alert('You have an incomplete order. Please complete or cancel it before placing a new order.')
-
+                        $("#popup-modal-checkout").modal("openModal");
+                        return false;
                     } else {
+                        $("#popup-modal-checkout").modal("closeModal");
                         return placeOrderAction(paymentData, redirectOnSuccess);
                     }
                 },
@@ -52,6 +34,7 @@ define([
             });
 
             return this._super(paymentData, redirectOnSuccess);
+
         };
     };
 });

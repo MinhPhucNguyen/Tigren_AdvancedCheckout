@@ -1,13 +1,28 @@
-<div id="popup-modal">
-    This is Test JS
+<div id="popup-modal-checkout">
+    <h3>You have an order that is not complete. Please wait to complete the order before creating a new order.</h3>
 </div>
 
-<script type="text/x-magento-init">
-    {
-        "*": {
-            "Magento_Checkout/js/action/place-order": {
-                "Tigren_AdvancedCheckout/js/place-order": true
-            }
-        }
-    }
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+        var options = {
+            type: 'popup',
+            title: $.mage.__('Customer has an incomplete order'),
+            responsive: true,
+            innerScroll: true,
+            buttons: [
+                {
+                    text: $.mage.__('Close'),
+                    class: 'close_btn',
+                    click: function () {
+                        $("#popup-modal-checkout").modal("closeModal");
+                    }
+                },
+            ]
+        };
+        modal(options, $('#popup-modal-checkout'));
+    })
 </script>
+

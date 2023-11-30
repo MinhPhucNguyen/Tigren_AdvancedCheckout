@@ -12,6 +12,5 @@
         <route id="advancedcheckout" frontName="advancedcheckout">
             <module name="Tigren_AdvancedCheckout"/>
         </route>
-
     </router>
 </config>

@@ -26,6 +26,7 @@ class AccountManagement implements AccountManagementInterface
     {
         $customerFactory = $this->customerFactory->create();
         $collection = $customerFactory->getCollection();
+        
         $result = [];
         foreach ($collection as $item) {
             $result[] = $item->getData();

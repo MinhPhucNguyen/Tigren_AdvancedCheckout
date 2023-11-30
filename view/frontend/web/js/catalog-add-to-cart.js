@@ -36,6 +36,7 @@ require([
 
     var options = {
         type: 'popup',
+        title: $.mage.__('Add to Cart Warning'),
         responsive: true,
         innerScroll: true,
         buttons: [
@@ -55,8 +56,7 @@ require([
             }
         ]
     };
-
-    var popup = modal(options, $('#popup-modal'));
+    modal(options, $('#popup-modal'));
 
     $("#product-addtocart-button").on('click', function () {
 
