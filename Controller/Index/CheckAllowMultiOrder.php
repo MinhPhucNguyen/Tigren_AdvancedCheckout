@@ -10,16 +10,35 @@ namespace Tigren\AdvancedCheckout\Controller\Index;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Checkout\Model\Cart;
 
 class CheckAllowMultiOrder extends Action
 {
+    /**
+     * @var JsonFactory
+     */
     protected $resultJsonFactory;
+
+    /**
+     * @var ProductFactory
+     */
     protected $productFactory;
+
+    /**
+     * @var Cart
+     */
     protected $cart;
 
+
+    /**
+     * @param Cart $cart
+     * @param ProductFactory $productFactory
+     * @param JsonFactory $resultJsonFactory
+     * @param Context $context
+     */
     public function __construct(
         Cart           $cart,
         ProductFactory $productFactory,
@@ -33,6 +52,9 @@ class CheckAllowMultiOrder extends Action
         parent::__construct($context);
     }
 
+    /**
+     * @return Json
+     */
     public function execute()
     {
         $resultJson = $this->resultJsonFactory->create();

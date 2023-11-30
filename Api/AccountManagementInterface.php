@@ -8,13 +8,13 @@
 
 namespace Tigren\AdvancedCheckout\Api;
 
+use Tigren\AdvancedCheckout\Api\Data\AccountInterface;
+
 interface AccountManagementInterface
 {
 
     /**
-     * @param string $email
-     * @param string $password
-     * @return int
+     * @return AccountInterface[]
      */
     public function getAllAccounts();
 }

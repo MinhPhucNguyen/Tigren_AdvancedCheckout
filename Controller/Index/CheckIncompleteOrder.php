@@ -18,15 +18,34 @@ use Magento\Checkout\Model\Session as CheckoutSession;
 class CheckIncompleteOrder extends Action
 {
 
+    /**
+     * @var JsonFactory
+     */
     protected $resultJsonFactory;
 
+    /**
+     * @var CustomerSession
+     */
     protected $customerSession;
 
+    /**
+     * @var OrderCollectionFactory
+     */
     protected $orderCollectionFactory;
 
+    /**
+     * @var CheckoutSession
+     */
     protected $checkoutSession;
 
 
+    /**
+     * @param CheckoutSession $checkoutSession
+     * @param CustomerSession $customerSession
+     * @param OrderCollectionFactory $orderCollectionFactory
+     * @param JsonFactory $resultJsonFactory
+     * @param Context $context
+     */
     public function __construct(
         CheckoutSession        $checkoutSession,
         CustomerSession        $customerSession,
@@ -42,19 +61,11 @@ class CheckIncompleteOrder extends Action
         parent::__construct($context);
     }
 
-    public function getRealOrderId()
-    {
-        $lastOrderId = $this->checkoutSession->getLastOrderId();
-        return $lastOrderId;
-    }
-
     public function execute()
     {
         $resultJson = $this->resultJsonFactory->create();
 
         $customerId = $this->customerSession->getCustomerId();
-
-//        $abc = $this->checkoutSession->getData();
 
         $allOrderOfCustomer = $this->orderCollectionFactory->create()
             ->addFieldToFilter('customer_id', $customerId)

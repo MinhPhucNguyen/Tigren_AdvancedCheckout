@@ -13,7 +13,7 @@ define([
     'use strict';
 
     return function (widget) {
-
+        
         $.widget('mage.catalogAddToCart', widget, {
 
             submitForm: function (form) {
