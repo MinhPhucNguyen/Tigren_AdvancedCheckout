@@ -7,17 +7,13 @@
 
 var config =
     {
-        map:
-            {
-                '*':
-                    {
-                        'addtocart': 'Tigren_AdvancedCheckout/js/catalog-add-to-cart',
-                    }
-            },
         config: {
             mixins: {
                 'Magento_Checkout/js/action/place-order': {
                     'Tigren_AdvancedCheckout/js/place-order': true
+                },
+                'Magento_Catalog/js/catalog-add-to-cart': {
+                    'Tigren_AdvancedCheckout/js/catalog-add-to-cart-mixin': true
                 }
             }
         }

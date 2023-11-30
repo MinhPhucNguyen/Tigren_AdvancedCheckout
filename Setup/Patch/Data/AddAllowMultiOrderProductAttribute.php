@@ -60,6 +60,7 @@ class AddAllowMultiOrderProductAttribute implements DataPatchInterface
                 'is_visible_in_grid' => false,
                 'is_html_allowed_on_front' => false,
                 'visible_on_front' => false,
+                'default' => 0,
                 'visible' => true,
                 'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
                 'label' => 'Allow Multi Order',

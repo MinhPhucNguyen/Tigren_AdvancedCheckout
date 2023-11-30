@@ -37,26 +37,18 @@ class CheckAllowMultiOrder extends Action
     {
         $resultJson = $this->resultJsonFactory->create();
         $productId = $this->getRequest()->getParam('product_id');
-        $qty = $this->getRequest()->getParam('qty');
-        $params = [
-            'product' => $productId,
-            'qty' => $qty
-        ];
+        $productSku = $this->getRequest()->getParam('product_sku');
 
         $product = $this->productFactory->create()->load($productId);
         $allItemsInCart = $this->cart->getQuote()->getAllVisibleItems();
-
-        if (!$product->getId()) {
-            return;
-        }
 
         /**
          * Check allow multi order
          */
         if (count($allItemsInCart) > 0) {
             foreach ($allItemsInCart as $item) {
-                if ($productId == $item->getProductId()) {
-                    if (!$product->getAllowMultiOrder() == '1') {
+                if ($productSku == $item->getSku()) {
+                    if (!$product->getAllowMultiOrder()) {
                         return $resultJson->setData([
                             'showPopUp' => true,
                             'message' => __('You can only purchase one item at a time.')
