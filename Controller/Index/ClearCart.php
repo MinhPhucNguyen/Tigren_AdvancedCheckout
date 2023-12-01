@@ -17,12 +17,27 @@ use Magento\Framework\Controller\Result\JsonFactory;
 class ClearCart extends Action
 {
 
+    /**
+     * @var Cart
+     */
     protected $cart;
 
+    /**
+     * @var CheckoutSession
+     */
     protected $checkoutSession;
 
+    /**
+     * @var JsonFactory
+     */
     protected $resultJsonFactory;
 
+    /**
+     * @param JsonFactory $resultJsonFactory
+     * @param CheckoutSession $checkoutSession
+     * @param Cart $cart
+     * @param Context $context
+     */
     public function __construct(
         JsonFactory     $resultJsonFactory,
         CheckoutSession $checkoutSession,

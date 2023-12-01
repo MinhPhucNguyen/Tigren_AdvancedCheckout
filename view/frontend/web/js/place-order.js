@@ -7,8 +7,7 @@
 
 define([
     'jquery',
-    'mage/utils/wrapper'
-], function ($, wrapper) {
+], function ($) {
     'use strict';
 
     return function (placeOrderAction) {
@@ -19,7 +18,6 @@ define([
                 url: '/advancedcheckout/index/checkincompleteorder',
                 method: 'GET',
                 success: function (response) {
-
                     if (response.showPopUp) {
                         $("#popup-modal-checkout").modal("openModal");
                         return false;

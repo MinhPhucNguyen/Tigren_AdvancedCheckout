@@ -64,13 +64,16 @@ class CheckAllowMultiOrder extends Action
         $product = $this->productFactory->create()->load($productId);
         $allItemsInCart = $this->cart->getQuote()->getAllVisibleItems();
 
+        $allowMultiOrder = $product->getCustomAttribute('allow_multi_order')
+            ? $product->getCustomAttribute('allow_multi_order')->getValue() : 0;
+
         /**
          * Check allow multi order
          */
         if (count($allItemsInCart) > 0) {
             foreach ($allItemsInCart as $item) {
                 if ($productSku == $item->getSku()) {
-                    if (!$product->getAllowMultiOrder()) {
+                    if ($allowMultiOrder !== 1) {
                         return $resultJson->setData([
                             'showPopUp' => true,
                             'message' => __('You can only purchase one item at a time.')
