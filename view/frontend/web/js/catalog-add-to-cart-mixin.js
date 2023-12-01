@@ -27,7 +27,6 @@ define([
                         product_sku: form.attr('data-product-sku')
                     },
                     success: function (response) {
-                        console.log(response);
                         if (!response.showPopUp) {
                             self.ajaxSubmit(form);
                         }
