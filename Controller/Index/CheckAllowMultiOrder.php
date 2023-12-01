@@ -58,39 +58,31 @@ class CheckAllowMultiOrder extends Action
     public function execute()
     {
         $resultJson = $this->resultJsonFactory->create();
-        $productId = $this->getRequest()->getParam('product_id');
+
+        //Get Sku from request
         $productSku = $this->getRequest()->getParam('product_sku');
 
-        $product = $this->productFactory->create()->load($productId);
-        $allItemsInCart = $this->cart->getQuote()->getAllVisibleItems();
+        //Get current product by sku and check if it is on cart
+        $currentProduct = $this->productFactory->create()->loadByAttribute('sku', $productSku);
+        $productOnCart = $this->cart->getQuote()->hasProductId($currentProduct->getId());
 
-        $allowMultiOrder = $product->getCustomAttribute('allow_multi_order')
-            ? $product->getCustomAttribute('allow_multi_order')->getValue() : 0;
+        //Get allow multi order attribute of current product
+        $allowMultiOrder = $currentProduct->getCustomAttribute('allow_multi_order') ?
+            $currentProduct->getCustomAttribute('allow_multi_order')->getValue() : 0;
 
         /**
          * Check allow multi order
          */
-        if (count($allItemsInCart) > 0) {
-            foreach ($allItemsInCart as $item) {
-                if ($productSku == $item->getSku()) {
-                    if ($allowMultiOrder !== 1) {
-                        return $resultJson->setData([
-                            'showPopUp' => true,
-                            'message' => __('You can only purchase one item at a time.')
-                        ]);
-
-                    } else {
-                        return $resultJson->setData([
-                            'showPopUp' => false,
-                            'message' => __('')
-                        ]);
-                    }
-                }
-            }
+        if ($productOnCart && $allowMultiOrder != 1) {
+            return $resultJson->setData([
+                'showPopUp' => true,
+                'message' => __('You can only purchase one item at a time.'),
+            ]);
+        } else {
+            return $resultJson->setData([
+                'showPopUp' => false,
+                'message' => __(''),
+            ]);
         }
-        return $resultJson->setData([
-            'showPopUp' => false,
-            'message' => __('')
-        ]);
     }
 }
